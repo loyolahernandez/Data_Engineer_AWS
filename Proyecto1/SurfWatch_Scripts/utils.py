@@ -9,7 +9,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import pysurfline
 
-def get_forecast(spotId, wind, max_height, min_height, sunrise, sunset):
+def get_forecast(spotId):
 
     spotforecasts = pysurfline.get_spot_forecasts(
         spotId,
