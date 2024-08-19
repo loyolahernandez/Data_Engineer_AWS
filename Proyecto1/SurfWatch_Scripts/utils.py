@@ -7,8 +7,21 @@ import requests
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
+import pysurfline
 
-def compare_conditions(df, spotId, wind, max_height, min_height, sunrise, sunset):
+def get_forecast(spotId, wind, max_height, min_height, sunrise, sunset):
+
+    spotforecasts = pysurfline.get_spot_forecasts(
+        spotId,
+        days=4,
+        intervalHours=3,
+    )
+
+    df = spotforecasts.get_dataframe()
+
+    return df
+
+def compare_conditions(df, wind, max_height, min_height, sunrise, sunset):
     df_sesh = df[
         (df['surf_max'] <= max_height) & (df['surf_max'] >= min_height) &
         (df['timestamp_dt'].dt.hour <= sunset) & (df['timestamp_dt'].dt.hour >= sunrise) &
