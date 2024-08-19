@@ -27,19 +27,22 @@ def create_sms(df_sesh):
     # SMS a string
     sms = df_sms.to_string(index=False)
 
-    return sms
+    return df_sesh, sms
 
-def send_sms(sms):
-    account_sid = TWILIO_ACCOUNT_SID 
-    auth_token = TWILIO_AUTH_TOKEN
+def send_sms(df_sesh, sms):
+    if df_sesh.empty:
+        return
+    else:
+        account_sid = TWILIO_ACCOUNT_SID 
+        auth_token = TWILIO_AUTH_TOKEN
 
-    client = Client(account_sid, auth_token)
+        client = Client(account_sid, auth_token)
 
-    message = client.messages \
-                    .create(
-                        body='\nHola! \n\n\n Hoy puede salir ola en Buchu. \n\n\nCondiciones esperadas: ' + sms,
-                        from_=PHONE_NUMBER,
-                        to='+56982091549'
-                    )
-    
-    return message.sid
+        message = client.messages \
+                        .create(
+                            body='\nHola! \n\n\n Hoy puede salir ola en Buchu. \n\n\nCondiciones esperadas: ' + sms,
+                            from_=PHONE_NUMBER,
+                            to='+56982091549'
+                        )
+        
+        return message.sid
