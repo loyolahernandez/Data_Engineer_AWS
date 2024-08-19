@@ -1,44 +1,32 @@
 """
 ************************************************************************
 * Author = @ignacioloyola                                              *
-* Date = '07/08/2024'                                                  *
-* Description = Envio de mensajes Twilio con Python                    *
+* Date = '19/08/2024'                                                  *
+* Description = Envio de surf forecast con Twilio                      *
 ************************************************************************
 """
 
 
+from twilio_config import TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,PHONE_NUMBER
+import pysurfline
+import pandas as pd
 import os
 from twilio.rest import Client
-from twilio_config import TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,PHONE_NUMBER,API_KEY_WAPI
+from twilio_config import *
 import time
-from requests import Request, Session
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import json
-import pandas as pd
-import requests
-from tqdm import tqdm
-from datetime import datetime
-from utils import request_wapi,get_forecast,create_df,send_message,get_date
+from utils import get_forecast, compare_conditions,create_sms,send_sms
 
-
-
-query = 'Concepción'
-api_key = API_KEY_WAPI
-
-input_date= get_date()
-response = request_wapi(api_key,query)
-
+# Condiciones buchu
+spotId = "640a4d90e92030fa8aa15c69"
+wind = 'Offshore'
+max_height = 2.5
+min_height = 2
+sunrise = 8
+sunset = 18
 datos = []
 
-for i in tqdm(range(24),colour = 'green'):
+df = get_forecast(spotId)
+df_sesh = compare_conditions(df, wind, max_height, min_height, sunrise, sunset)
+sms = create_sms(df_sesh)
 
-    datos.append(get_forecast(response,i))
-
-
-df_rain = create_df(datos)
-
-# Send Message
-message_id = send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,df_rain,query)
-
-
-print('Mensaje Enviado con exito ' + message_id)
+send_sms(df_sesh, sms)

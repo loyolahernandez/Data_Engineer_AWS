@@ -43,7 +43,7 @@ def create_sms(df_sesh):
     # SMS a string
     sms = df_sms.to_string(index=False)
 
-    return df_sesh, sms
+    return sms
 
 
 def send_sms(df_sesh, sms):
