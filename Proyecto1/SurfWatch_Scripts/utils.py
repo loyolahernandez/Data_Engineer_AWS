@@ -29,7 +29,7 @@ def create_sms(df_sesh):
 
     return sms
 
-def send_sms():
+def send_sms(sms):
     account_sid = TWILIO_ACCOUNT_SID 
     auth_token = TWILIO_AUTH_TOKEN
 
@@ -37,7 +37,7 @@ def send_sms():
 
     message = client.messages \
                     .create(
-                        body='\nHola! \n\n\n Hoy puede salir ola en Buchu. \n\n\nCondiciones esperadas: ' + wave_sms(spotId, wind, max_height, min_height, sunrise, sunset),
+                        body='\nHola! \n\n\n Hoy puede salir ola en Buchu. \n\n\nCondiciones esperadas: ' + sms,
                         from_=PHONE_NUMBER,
                         to='+56982091549'
                     )
