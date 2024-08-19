@@ -9,6 +9,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import pysurfline
 
+
 def get_forecast(spotId):
 
     spotforecasts = pysurfline.get_spot_forecasts(
@@ -21,6 +22,7 @@ def get_forecast(spotId):
 
     return df
 
+
 def compare_conditions(df, wind, max_height, min_height, sunrise, sunset):
     df_sesh = df[
         (df['surf_max'] <= max_height) & (df['surf_max'] >= min_height) &
@@ -28,12 +30,13 @@ def compare_conditions(df, wind, max_height, min_height, sunrise, sunset):
         (df['directionType'] == wind)
     ].copy()
 
-    return df_sesh
-
-def create_sms(df_sesh):
     df_sesh['date'] = df_sesh['timestamp_dt'].dt.date
     df_sesh['hour'] = df_sesh['timestamp_dt'].dt.hour
 
+    return df_sesh
+
+
+def create_sms(df_sesh):
     # Data para el sms
     df_sms = df_sesh[['hour', 'surf_max', 'directionType']]
 
@@ -41,6 +44,7 @@ def create_sms(df_sesh):
     sms = df_sms.to_string(index=False)
 
     return df_sesh, sms
+
 
 def send_sms(df_sesh, sms):
     if df_sesh.empty:
