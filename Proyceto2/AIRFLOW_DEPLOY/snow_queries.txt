@@ -1,0 +1,28 @@
+
+CREATE STAGE "LEAGUES"."PUBLIC".demo_stage;
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+CREATE OR REPLACE TABLE football_leagues (
+id         VARCHAR (30) NOT NULL,
+equipo     VARCHAR (30) NOT NULL,
+Jugados    INTEGER NOT NULL,
+ganados    INTEGER NOT NULL,
+empatados  INTEGER NOT NULL,
+perdidos   INTEGER NOT NULL,
+gf         INTEGER NOT NULL,
+gc         INTEGER NOT NULL,
+diff       INTEGER NOT NULL,
+puntos     INTEGER NOT NULL,
+liga       VARCHAR (30) NOT NULL,
+created_at VARCHAR (30) NOT NULL
+);
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+list @demo_stage;
+
+select *
+from "LEAGUES"."PUBLIC"."FOOTBALL_LEAGUES";
