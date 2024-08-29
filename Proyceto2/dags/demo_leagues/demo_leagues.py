@@ -30,8 +30,8 @@ from datetime import datetime
 
 
 
-default_arguments = {   'owner': 'Alexbonella',
-                        'email': 'alexbonella2806@gmail.com',
+default_arguments = {   'owner': 'IgnacioLoyola',
+                        'email': 'ignacioloyolah@gmail.com',
                         'retries':1 ,
                         'retry_delay':timedelta(minutes=5)}
 
@@ -79,7 +79,7 @@ with DAG('FOOTBAL_LEAGUES',
 
                     task_id='ingest_table',
                     sql='./queries/upload_table.sql',
-                    snowflake_conn_id='demo_conn',
+                    snowflake_conn_id='demo_snow',
                     warehouse=params_info["DWH"],
                     database=params_info["DB"],
                     role=params_info["ROLE"],
