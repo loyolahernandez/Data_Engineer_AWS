@@ -1,7 +1,7 @@
 """
 *************************************************************
-Author = @lexbonella -- https://github.com/alexbonella      *
-Date = '22/09/2022'                                         *
+Author = @ignacioloyolahernandez      *
+Date = '29/08/2024'                                         *
 Description = Extracting Data from Multiple Football League *
 *************************************************************
 """
@@ -69,7 +69,7 @@ with DAG('FOOTBAL_LEAGUES',
 
                     task_id='upload_data_stage',
                     sql='./queries/upload_stage.sql',
-                    snowflake_conn_id='demo_conn',
+                    snowflake_conn_id='demo_snow',
                     warehouse=params_info["DWH"],
                     database=params_info["DB"],
                     role=params_info["ROLE"],
