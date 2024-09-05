@@ -39,7 +39,7 @@ default_arguments = {   'owner': 'IgnacioLoyola',
 with DAG('FOOTBAL_LEAGUES',
          default_args=default_arguments,
          description='Extracting Data Footbal League' ,
-         start_date = datetime(2022, 9, 21),
+         start_date = datetime(2024, 9, 5),
          schedule_interval = None,
          tags=['tabla_espn'],
          catchup=False) as dag :
